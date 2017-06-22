@@ -109,24 +109,28 @@ namespace SnakeConsole
                     snakeNewHead.Col = width -1;
                     penalty += 100;
                     score -= 100;
+                    Draw.Value(-100);
                 }
                 if (snakeNewHead.Col >= width)
                 {     
                     snakeNewHead.Col = 1;
                     penalty += 100;
                     score -= 100;
+                    Draw.Value(-100);
                 }
                 if (snakeNewHead.Row < 1)
                 {
                     snakeNewHead.Row = height -1;
                     penalty += 100;
                     score -= 100;
+                    Draw.Value(-100);
                 }
                 if (snakeNewHead.Row >= height)
                 {
                     snakeNewHead.Row = 1;
                     penalty += 100;
                     score -= 100;
+                    Draw.Value(-100);
                 }
 
                 if (snake.Contains(snakeNewHead))
@@ -137,6 +141,9 @@ namespace SnakeConsole
 
                     Point hitPoint = new Point(snakeNewHead.Col, snakeNewHead.Row);
                     Draw.HitSnake(hitPoint);
+                    Draw.Value(-1000);
+
+                    Thread.Sleep(100);
 
                     Point newHeadRight = new Point(snakeHead.Col + Directions.Right.Col, snakeHead.Row + Directions.Right.Row);
                     Point newHeadLeft = new Point(snakeHead.Col + Directions.Left.Col, snakeHead.Row + Directions.Left.Row);
@@ -145,8 +152,8 @@ namespace SnakeConsole
 
                     if ((snake.Contains(newHeadRight) || stones.Contains(newHeadRight)) && (snake.Contains(newHeadLeft) || stones.Contains(newHeadLeft)) && (snake.Contains(newHeadUp) || stones.Contains(newHeadUp)) && (snake.Contains(newHeadDown) || stones.Contains(newHeadDown)))
                     {
-                        Draw.GameOver();
-                        Thread.Sleep(5000);
+                        Draw.GameOver(score);
+                        Thread.Sleep(1500);
                         Program.Main();
                     }
 
@@ -205,6 +212,9 @@ namespace SnakeConsole
 
                     Point hitPoint = new Point(snakeNewHead.Col, snakeNewHead.Row);
                     Draw.HitStone(hitPoint);
+                    Draw.Value(-1000);
+
+                    Thread.Sleep(100);
 
                     Point newHeadRight = new Point(snakeHead.Col + Directions.Right.Col, snakeHead.Row + Directions.Right.Row);
                     Point newHeadLeft = new Point(snakeHead.Col + Directions.Left.Col, snakeHead.Row + Directions.Left.Row);
@@ -213,9 +223,9 @@ namespace SnakeConsole
 
                     if ((snake.Contains(newHeadRight) || stones.Contains(newHeadRight)) && (snake.Contains(newHeadLeft) || stones.Contains(newHeadLeft)) && (snake.Contains(newHeadUp) || stones.Contains(newHeadUp)) && (snake.Contains(newHeadDown) || stones.Contains(newHeadDown)))
                     {
-                        Draw.GameOver();
+                        Draw.GameOver(score);
                         Draw.ClearCursor();
-                        Thread.Sleep(5000);
+                        Thread.Sleep(1500);
                         Program.Main();
                     }
 
@@ -271,6 +281,7 @@ namespace SnakeConsole
 
                 if (snakeNewHead.Equals(food))
                 {
+                    Draw.Value(foodValue);
                     count++;
                     score += foodValue;
                     foodValue = 1000;
@@ -292,7 +303,8 @@ namespace SnakeConsole
                     } while (snake.Contains(food) || stones.Contains(food));
                     Draw.Food(food);
 
-                    Console.Beep();
+                    //Thread.Sleep(100);
+                    //Console.Beep();
                 }
                 else
                 {
@@ -315,7 +327,7 @@ namespace SnakeConsole
                 Console.SetCursorPosition(1, 0);
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkYellow;
-                Console.Write("Score: " + score + " Food: " + foodValue + " Penalty: " + penalty + " Speed: " + speed + "     ");
+                Console.Write("Score: " + score + " Penalty: " + penalty + " Speed: " + speed + " Food: " + foodValue + " ");
                 
                 Draw.ClearCursor();
                 Thread.Sleep(100 - speed);

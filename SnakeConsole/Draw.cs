@@ -8,6 +8,7 @@ namespace SnakeConsole
     {
         private static int _width = 0;
         private static int _height = 0;
+        private static int _highScore = 0;
 
         public static void ClearCursor()
         {
@@ -26,6 +27,7 @@ namespace SnakeConsole
             Console.BufferWidth = width + 2;
             Console.CursorVisible = false;
             Console.Title = "Snake by StaerkIO";
+            Console.Clear();
 
             Boader(width, height);
         }
@@ -66,6 +68,24 @@ namespace SnakeConsole
             ClearCursor();
         }
 
+        public static void Value(int value)
+        {
+            string v;
+            if (value >= 0)
+            {
+                v = " +" + value.ToString();
+            }
+            else
+            {
+                v = value.ToString();
+            }
+            Console.SetCursorPosition(_width - v.Length, 0);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.Write(v);
+            ClearCursor();
+        }
+
         public static void Stone(Point point)
         {
             Console.SetCursorPosition(point.Col, point.Row);
@@ -84,13 +104,29 @@ namespace SnakeConsole
             ClearCursor();
         }
 
-        public static void GameOver()
+        public static void GameOver(int score)
         {
-            Console.SetCursorPosition(25, 15);
+            if (score > _highScore)
+            {
+                _highScore = score;
+            }
+            string go = " GAME OVER! Score: " + score + " ";
+            Console.SetCursorPosition(_width/2 - go.Length/2, _height/2);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.Write("GAME OVER!");
+            Console.Write(go);
             ClearCursor();
+
+        }
+
+        public static void HighScore()
+        {
+                string hs = "Highscore: " + _highScore;
+                Console.SetCursorPosition(_width - hs.Length, _height);
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                Console.Write(hs);
+                ClearCursor();
         }
 
         private static void Boader(int width, int height)
@@ -113,8 +149,13 @@ namespace SnakeConsole
                 Console.SetCursorPosition(width, i);
                 Console.Write(" ");
             }
-
+            string foot = "Tore Bieler EDITON";
+            Console.SetCursorPosition(1, height);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.Write(foot);
             ClearCursor();
+            HighScore();
         }
     }
 }

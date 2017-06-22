@@ -1,8 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp1.1</TargetFramework>
+    <Authors>Jeppe Stærk</Authors>
+    <Company>StaerkIO</Company>
+    <Description>Tore Bieler EDITION</Description>
+    <Copyright />
+    <RuntimeIdentifiers>win10-x64;win7-x86;win7-x64</RuntimeIdentifiers>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>snakeconsole.pfx</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
   </PropertyGroup>
 
 </Project>
